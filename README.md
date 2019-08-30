@@ -1,10 +1,10 @@
 # DTI Scheduling using RL
 
-OpenAi Gym is a toolkit for reinforcement learning research. It provides a common interface to directly compare the performance results of different RL algorithms.
-NS3Gym offers the possibility to integrate this framework into the network simulator ns-3 by providing an interface between the two.
+[OpenAI Gym](https://gym.openai.com/) is a toolkit for reinforcement learning research. It provides a common interface to directly compare the performance results of different RL algorithms.
+[NS3Gym](https://github.com/tkn-tub/ns3-gym) offers the possibility to integrate this framework into the network simulator ns-3 by providing an interface between the two.
 This interface takes care for the management of the ns3 simulation process life cycle as well as delivering state and action information between the gym agent and the simulation environment.
 
-## Installation
+## Installation of NS3Gym
 
 1. Install all required dependencies required by ns-3.
 ```
@@ -53,16 +53,42 @@ In this work, the required functions have been implemented in the `DmgNewRLSched
 
 The script `evaluate-rl-scheduler-v3.py` implements a QLearning approach.
 Q-learning is a model-free reinforcement learning algorithm. The goal of Q-learning is to learn a policy, which tells an agent what action to take under what circumstances. It does not require a model (hence the connotation "model-free") of the environment, and it can handle problems with stochastic transitions and rewards, without requiring adaptations.
+More on QLearning can be read
 
+The script is divided in a training phase and a test phase. The results of the training phase are saved in a `QTable` structure and used to decide the best action on the test phase.
 
-For any finite Markov decision process (FMDP), Q-learning finds a policy that is optimal in the sense that it maximizes the expected value of the total reward over any and all successive steps, starting from the current state
+To get the simulation running, execute the `evaluate-rl-scheduler-v3.py` located in the `scratch\final_evaluation\` folder. The script saves some useful statistics, the default path is `../output/`. It is necessary to create the folder output if not present or change the path.
+The generated file are shown below.
+```
+/test_episodes
+/train_episodes
+-ns3-throughput.txt
+-ns3-statistics.txt
+-ns3-dti-occupancy.txt
+```
 
-The script is divided in a traning phase and a test phase.
+Examples
+========
 
+All examples for NS3gym can be found [here](https://github.com/tkn-tub/ns3-gym/tree/master/scratch) while specifics OpenAI examples can be accessed [here](https://github.com/openai/gym/tree/master/examples)
 
+## Basic Interface of NS3Gym
 
+1. Example Python script. Note, that `gym.make('ns3-v0')` starts ns-3 simulation script located in current working directory. As specified before there `.cc` file must implement the requested methods
+```
+import gym
+import ns3gym
+import MyAgent
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+env = gym.make('ns3-v0')
+obs = env.reset()
+agent = MyAgent.Agent()
 
-Please make sure to update tests as appropriate.
+while True:
+  action = agent.get_action(obs)
+  obs, reward, done, info = env.step(action)
+
+  if done:
+    break
+env.close()
+```
