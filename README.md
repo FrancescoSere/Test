@@ -23,7 +23,7 @@ apt-get install libzmq5 libzmq5-dev
 apt-get install libprotobuf-dev
 apt-get install protobuf-compiler
 ```
-3. Configure and build ns-3 project:
+3. Configure and build, the configure command is specific to the 802.11ad implementation. :
 ```
 # Opengym Protocol Buffer messages (C++ and Python) are build during configure
 CXXFLAGS+=-Wno-deprecated ./waf configure --disable-examples --disable-tests --disable-python --enable-modules='applications','core','internet','point-to-point','wifi','opengym'
@@ -34,6 +34,12 @@ CXXFLAGS+=-Wno-deprecated ./waf configure --disable-examples --disable-tests --d
 ```
 pip3 install ./src/opengym/model/ns3gym
 ```
+
+5. Troubleshooting
+
+If a previous installation of ns3gym is present, the install command will detect it and fail to install the newer one. In this case it's possible to force the update by adding `--update` to the previous command
+
+
 
 
 
