@@ -63,7 +63,7 @@ More on QLearning can be read
 
 The script is divided in a training phase and a test phase. The results of the training phase are saved in a `QTable` structure and used to decide the best action on the test phase.
 
-To get the simulation running, execute the `evaluate-rl-scheduler-v3.py` located in the `scratch\final_evaluation\` folder. The script saves some useful statistics, the default path is `../output/`. It is necessary to create the folder output if not present or change the path.
+To get the simulation running, execute the `evaluate-rl-scheduler-v3.py` located in the `scratch\final_evaluation\` folder. The script saves some useful statistics, the default path is `../output/`. It is necessary to create the folder output with two additional subfolders test_episodes and train_episodes if not present or change the path.
 The generated file are shown below.
 ```
 /test_episodes
